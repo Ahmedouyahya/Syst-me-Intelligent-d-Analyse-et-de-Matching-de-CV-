@@ -1,13 +1,64 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="jumbotron">
-    <h1 class="display-4">Bienvenue sur CV Platform</h1>
-    <p class="lead">La plateforme intelligente de matching entre candidats et recruteurs.</p>
-    <hr class="my-4">
-    <p>Utilisez notre IA pour trouver le candidat idéal ou l'offre parfaite.</p>
-    {% if not current_user.is_authenticated %}
-        <a class="btn btn-primary btn-lg" href="{{ url_for('auth.register') }}" role="button">Commencer</a>
-    {% endif %}
-</div>
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4">Trouvez le Match Parfait avec l'IA</h1>
+        <p class="lead mb-5 mx-auto" style="max-width: 700px;">
+            Notre algorithme de traitement du langage naturel (NLP) analyse les CV et les offres d'emploi pour créer des connexions pertinentes et efficaces.
+        </p>
+        {% if not current_user.is_authenticated %}
+            <div class="d-flex justify-content-center gap-3">
+                <a class="btn btn-light btn-lg px-5 fw-bold text-primary" href="{{ url_for('auth.register') }}">Commencer</a>
+                <a class="btn btn-outline-light btn-lg px-5 fw-bold" href="{{ url_for('auth.login') }}">Connexion</a>
+            </div>
+        {% else %}
+            <div class="d-flex justify-content-center gap-3">
+                {% if current_user.role == 'company' %}
+                    <a class="btn btn-light btn-lg px-5 fw-bold text-primary" href="{{ url_for('jobs.create_job') }}">Publier une Offre</a>
+                {% else %}
+                    <a class="btn btn-light btn-lg px-5 fw-bold text-primary" href="{{ url_for('candidates.profile') }}">Mettre à jour mon CV</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="mb-3 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-cpu" viewBox="0 0 16 16">
+                        <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0zm-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3h-7zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                    </svg>
+                </div>
+                <h3>Analyse IA</h3>
+                <p class="text-muted">Extraction automatique des compétences clés depuis les descriptions de poste et les CVs.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="mb-3 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-lightning-charge" viewBox="0 0 16 16">
+                        <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
+                    </svg>
+                </div>
+                <h3>Matching Rapide</h3>
+                <p class="text-muted">Calcul de similarité instantané pour classer les candidats les plus pertinents.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="mb-3 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-shield-check" viewBox="0 0 16 16">
+                        <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.826 7.197 2.573 9.618.52 1.1 1.233 2.169 2.092 3.123.17.188.361.379.538.542.16.144.32.27.472.36.15.088.303.156.448.204.076.025.15.046.217.063.043.011.08.02.11.027a.5.5 0 0 0 .374 0c.03-.007.067-.016.11-.027.067-.017.141-.038.217-.063.145-.048.298-.116.448-.204.153-.09.312-.216.472-.36.177-.163.368-.354.538-.542.859-.954 1.572-2.023 2.092-3.123 1.747-2.421 3.127-5.461 2.574-9.618a.481.481 0 0 0-.328-.39c-.65-.237-1.875-.566-2.837-.856C11.977 1.647 10.118 1.34 8 1.34c-2.118 0-3.977.307-5.338.856zM8 2.733c2.16 0 3.888.314 5.138.783-.305 3.26-1.443 5.8-2.803 7.815-.62 1.02-1.322 2.057-2.138 2.98l-.197.217-.197-.217C6.922 13.39 6.22 12.353 5.6 11.333c-1.36-2.015-2.498-4.555-2.803-7.815 1.25-.469 2.978-.783 5.138-.783z"/>
+                    </svg>
+                </div>
+                <h3>Sécurisé</h3>
+                <p class="text-muted">Vos données sont protégées et utilisées uniquement pour le processus de recrutement.</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
