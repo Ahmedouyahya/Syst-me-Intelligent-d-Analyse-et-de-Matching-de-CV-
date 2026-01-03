@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-3 my-5">
+            <div class="card-header bg-success text-white text-center py-3 rounded-top">
+                <h3 class="mb-0">Inscription</h3>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-4">
+                        <h5 class="text-muted border-bottom pb-2">Informations de connexion</h5>
+                        <div class="mb-3">
+                            {{ form.email.label(class="form-label fw-bold") }}
+                            {% if form.email.errors %}
+                                {{ form.email(class="form-control is-invalid", placeholder="exemple@email.com") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email(class="form-control", placeholder="exemple@email.com") }}
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.password.label(class="form-label fw-bold") }}
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.confirm_password.label(class="form-label fw-bold") }}
+                                {% if form.confirm_password.errors %}
+                                    {{ form.confirm_password(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.confirm_password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.confirm_password(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="text-muted border-bottom pb-2">Type de compte</h5>
+                        <div class="mb-3">
+                            {{ form.role.label(class="form-label fw-bold") }}
+                            {{ form.role(class="form-select", id="role-select") }}
+                        </div>
+
+                        <!-- Candidate Fields -->
+                        <div id="candidate-fields">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.first_name.label(class="form-label fw-bold") }}
+                                    {% if form.first_name.errors %}
+                                        {{ form.first_name(class="form-control is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.first_name.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.first_name(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {{ form.last_name.label(class="form-label fw-bold") }}
+                                    {% if form.last_name.errors %}
+                                        {{ form.last_name(class="form-control is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.last_name.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.last_name(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Company Fields -->
+                        <div id="company-fields" style="display: none;">
+                            <div class="mb-3">
+                                {{ form.company_name.label(class="form-label fw-bold") }}
+                                {% if form.company_name.errors %}
+                                    {{ form.company_name(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.company_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.company_name(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-success btn-lg") }}
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center py-3 bg-light rounded-bottom">
+                <small class="text-muted">Déjà un compte ? <a href="{{ url_for('auth.login') }}" class="text-decoration-none fw-bold">Se connecter</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <small>Déjà un compte ? <a href="{{ url_for('auth.login') }}">Se connecter</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleSelect = document.getElementById('role-select');
+        const candidateFields = document.getElementById('candidate-fields');
+        const companyFields = document.getElementById('company-fields');
+
+        function toggleFields() {
+            if (roleSelect.value === 'candidate') {
+                candidateFields.style.display = 'block';
+                companyFields.style.display = 'none';
+            } else {
+                candidateFields.style.display = 'none';
+                companyFields.style.display = 'block';
+            }
+        }
+
+        roleSelect.addEventListener('change', toggleFields);
+        toggleFields(); // Initial state
+    });
+</script>
+{% endblock %}
+

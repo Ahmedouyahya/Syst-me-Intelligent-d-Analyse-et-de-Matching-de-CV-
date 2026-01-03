@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Bienvenue sur CV Platform</h1>
+    <p class="lead">La plateforme intelligente de matching entre candidats et recruteurs.</p>
+    <hr class="my-4">
+    <p>Utilisez notre IA pour trouver le candidat idéal ou l'offre parfaite.</p>
+    {% if not current_user.is_authenticated %}
+        <a class="btn btn-primary btn-lg" href="{{ url_for('auth.register') }}" role="button">Commencer</a>
+    {% endif %}
+</div>
+{% endblock %}

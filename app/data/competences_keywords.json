@@ -1,0 +1,6 @@
+{
+    "languages": ["python", "java", "c++", "javascript", "typescript", "php", "ruby", "go", "rust", "swift", "kotlin", "c#", "html", "css", "sql", "nosql", "r", "matlab", "scala", "perl", "bash", "shell"],
+    "frameworks": ["react", "angular", "vue", "django", "flask", "spring", "laravel", "symfony", "express", "nodejs", "dotnet", "asp.net", "jquery", "bootstrap", "tailwind", "tensorflow", "pytorch", "keras", "scikit-learn", "pandas", "numpy"],
+    "tools": ["git", "docker", "kubernetes", "jenkins", "aws", "azure", "gcp", "linux", "unix", "jira", "confluence", "slack", "trello", "figma", "adobe xd", "photoshop", "illustrator"],
+    "soft_skills": ["communication", "leadership", "teamwork", "problem solving", "critical thinking", "creativity", "adaptability", "time management", "organization", "flexibility", "empathy", "patience", "motivation", "negotiation", "conflict resolution"]
+}

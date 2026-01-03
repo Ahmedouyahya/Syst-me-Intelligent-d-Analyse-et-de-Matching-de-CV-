@@ -1,0 +1,15 @@
+flask
+werkzeug
+spacy
+nltk
+pdfplumber
+python-docx
+pandas
+scikit-learn
+flask-sqlalchemy
+flask-migrate
+flask-login
+flask-wtf
+email_validator
+psycopg2-binary
+python-dotenv

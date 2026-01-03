@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Mon Profil Candidat</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ candidate.first_name }} {{ candidate.last_name }}</h5>
+                    <p class="card-text">Email: {{ current_user.email }}</p>
+                    {% if candidate.cv_path %}
+                        <p class="text-success">CV téléchargé : {{ candidate.cv_path }}</p>
+                    {% else %}
+                        <p class="text-warning">Aucun CV téléchargé</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">Mettre à jour mon CV</div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.cv.label(class="form-label") }}
+                            {{ form.cv(class="form-control") }}
+                            {% if form.cv.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.cv.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Compétences détectées</div>
+                <div class="card-body">
+                    {% set skills = candidate.get_skills_list() %}
+                    {% if skills %}
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for skill in skills %}
+                                <span class="badge bg-info text-dark">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">Aucune compétence détectée. Veuillez télécharger votre CV.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">Formation</div>
+                <div class="card-body">
+                    {% set education = candidate.get_education_list() %}
+                    {% if education %}
+                        <ul class="list-group list-group-flush">
+                            {% for edu in education %}
+                                <li class="list-group-item">{{ edu }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">Aucune formation détectée.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

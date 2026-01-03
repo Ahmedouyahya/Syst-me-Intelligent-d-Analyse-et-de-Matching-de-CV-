@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Offres Recommandées pour vous</h2>
+    </div>
+
+    <div class="row">
+        {% for item in recommendations %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-{{ 'success' if item.score > 70 else 'warning' if item.score > 40 else 'secondary' }}">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Match: <strong>{{ item.score }}%</strong></span>
+                        <span class="badge bg-{{ 'success' if item.score > 70 else 'warning' if item.score > 40 else 'secondary' }}">
+                            {{ 'Excellent' if item.score > 70 else 'Bon' if item.score > 40 else 'Faible' }}
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.job.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ item.job.company.name }}</h6>
+                        <p class="card-text">{{ item.job.description[:150] }}...</p>
+                        
+                        <div class="mt-2">
+                            <small>Compétences communes:</small>
+                            <div>
+                                {% for skill in item.details.matching_skills[:5] %}
+                                    <span class="badge bg-info text-dark">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn btn-primary mt-3">Voir détails</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Publié le {{ item.job.created_at.strftime('%d/%m/%Y') }}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">Aucune recommandation disponible. Assurez-vous d'avoir complété votre profil et téléchargé votre CV.</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
